@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { event } from './gtag';
+import { sendGAEvent } from '@next/third-parties/google';
 
 async function fetchData() {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -29,11 +29,11 @@ export default function Home() {
                         >
                             {post.title}
                             <button
+                                className='ml-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
                                 onClick={() =>
-                                    event({
-                                        action: 'view_post',
-                                        category: 'Posts',
-                                        label: post.id.toString(),
+                                    sendGAEvent('event', 'Button Click', {
+                                        value: post.id,
+                                        label: post.title,
                                     })
                                 }
                             >

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { PostHogProvider } from './provider';
+import { PostHogProvider } from './providers';
 import './globals.css';
 
 export const metadata: Metadata = {

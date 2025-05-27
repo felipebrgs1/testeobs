@@ -29,7 +29,18 @@ export default function Home() {
                             {post.title}
                             <button
                                 className='bg-blue-500 text-white px-2 py-1 rounded'
-                                onClick={() => console.log(post)}
+                                onClick={() => {
+                                    const gtag = window.gtag;
+                                    if (gtag) {
+                                        gtag('event', 'view_post', {
+                                            event_category: 'Posts',
+                                            event_label: post.id.toString(),
+                                        });
+                                    }
+                                    console.log(
+                                        `Viewing details for post ID: ${post.id}`,
+                                    );
+                                }}
                             >
                                 View Details
                             </button>

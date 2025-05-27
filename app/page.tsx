@@ -1,5 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
+import { event } from './gtag';
 
 async function fetchData() {
     const response = await fetch('https://jsonplaceholder.typicode.com/posts');
@@ -28,19 +29,13 @@ export default function Home() {
                         >
                             {post.title}
                             <button
-                                className='bg-blue-500 text-white px-2 py-1 rounded'
-                                onClick={() => {
-                                    const gtag = window.gtag;
-                                    if (gtag) {
-                                        gtag('event', 'view_post', {
-                                            event_category: 'Posts',
-                                            event_label: post.id.toString(),
-                                        });
-                                    }
-                                    console.log(
-                                        `Viewing details for post ID: ${post.id}`,
-                                    );
-                                }}
+                                onClick={() =>
+                                    event({
+                                        action: 'view_post',
+                                        category: 'Posts',
+                                        label: post.id.toString(),
+                                    })
+                                }
                             >
                                 View Details
                             </button>
